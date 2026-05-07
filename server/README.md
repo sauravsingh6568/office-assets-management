@@ -27,6 +27,20 @@ export CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 mvn spring-boot:run
 ```
 
+## Running Backend Cross-Platform
+
+For macOS/Linux:
+
+```bash
+./mvnw spring-boot:run
+```
+
+For Windows PowerShell:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
 ## Deploy
 
 ### Backend on Render
