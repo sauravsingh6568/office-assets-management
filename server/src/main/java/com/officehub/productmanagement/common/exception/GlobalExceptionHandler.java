@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.validation.FieldError;
@@ -64,9 +65,39 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    public ResponseEntity<ApiResponse<Void>> handleInternalAuthenticationService(
+            InternalAuthenticationServiceException exception) {
+        if (hasCause(exception, MongoException.class) || hasCause(exception, DataAccessResourceFailureException.class)) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(ApiResponse.<Void>builder()
+                            .message("Database connection problem. Please check MongoDB connectivity and try again")
+                            .build());
+        }
+
+        if (hasCause(exception, UsernameNotFoundException.class)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponse.<Void>builder().message("Invalid email or password").build());
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.<Void>builder().message("Authentication service is temporarily unavailable").build());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGeneric(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ApiResponse.<Void>builder().message("Something went wrong").build());
+    }
+
+    private boolean hasCause(Throwable throwable, Class<? extends Throwable> targetType) {
+        Throwable current = throwable;
+        while (current != null) {
+            if (targetType.isInstance(current)) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
     }
 }

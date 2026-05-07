@@ -1,18 +1,20 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://singhsaurav170_db_user:badminton@office-product-manageme.jfg7l7a.mongodb.net/office_product_management?appName=office-product-management&serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
-      database: office_product_management
+      uri: ${MONGODB_URI:mongodb+srv://singhsaurav170_db_user:badminton@office-product-manageme.jfg7l7a.mongodb.net/office_product_management?appName=office-product-management&serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000}
+      database: ${MONGODB_DATABASE:office_product_management}
 
 app:
   jwt:
     secret: ${JWT_SECRET:b2ZmaWNlLXByb2R1Y3QtbWFuYWdlbWVudC1zZWNyZXQta2V5LTIwMjYtb2ZmaWNlLWh1Yg==}
     expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173}
   admin:
     seed:
-      name: ${ADMIN_SEED_NAME:}
-      email: ${ADMIN_SEED_EMAIL:}
-      password: ${ADMIN_SEED_PASSWORD:}
+      name: ${ADMIN_SEED_NAME:Office Admin}
+      email: ${ADMIN_SEED_EMAIL:admin@officehub.com}
+      password: ${ADMIN_SEED_PASSWORD:admin123}
