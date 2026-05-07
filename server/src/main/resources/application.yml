@@ -4,10 +4,12 @@ server:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb+srv://singhsaurav170_db_user:badminton@office-product-manageme.jfg7l7a.mongodb.net/office_product_management?appName=office-product-management&serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000}
+      uri: ${MONGODB_URI:${app.mongodb.default-uri}}
       database: ${MONGODB_DATABASE:office_product_management}
 
 app:
+  mongodb:
+    default-uri: mongodb+srv://singhsaurav170_db_user:badminton@office-product-manageme.jfg7l7a.mongodb.net/office_product_management?appName=office-product-management&serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
   jwt:
     secret: ${JWT_SECRET:b2ZmaWNlLXByb2R1Y3QtbWFuYWdlbWVudC1zZWNyZXQta2V5LTIwMjYtb2ZmaWNlLWh1Yg==}
     expiration-ms: ${JWT_EXPIRATION_MS:86400000}
