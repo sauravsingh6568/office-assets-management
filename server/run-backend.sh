@@ -28,4 +28,4 @@ if [ -n "${EXISTING_PID}" ]; then
 fi
 
 echo "Using $(java -version 2>&1 | head -n 1)"
-exec mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=${SERVER_PORT}"
+exec ./mvnw spring-boot:run -Dspring-boot.run.arguments="--server.port=${SERVER_PORT}"

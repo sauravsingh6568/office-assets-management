@@ -24,7 +24,7 @@ export CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 2. Start the app:
 
 ```bash
-mvn spring-boot:run
+sh run-backend.sh
 ```
 
 ## Running Backend Cross-Platform
@@ -32,13 +32,28 @@ mvn spring-boot:run
 For macOS/Linux:
 
 ```bash
-./mvnw spring-boot:run
+cd server
+sh run-backend.sh
 ```
 
 For Windows PowerShell:
 
 ```powershell
+cd server
 .\mvnw.cmd spring-boot:run
+```
+
+If you are already inside the `server` folder on macOS/Linux, do not run `sh server/run-backend.sh`.
+Use this instead:
+
+```bash
+sh run-backend.sh
+```
+
+If you are at the repository root, use:
+
+```bash
+sh server/run-backend.sh
 ```
 
 ## Deploy
