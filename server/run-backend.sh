@@ -16,6 +16,9 @@ fi
 export JAVA_HOME="${JAVA_HOME_CANDIDATE}"
 export PATH="${JAVA_HOME}/bin:${PATH}"
 
+# Keep local development convenient without relying on nested Spring placeholders.
+export MONGODB_URI="${MONGODB_URI:-mongodb+srv://singhsaurav170_db_user:badminton@office-product-manageme.jfg7l7a.mongodb.net/office_product_management?appName=office-product-management&serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000}"
+
 SERVER_PORT="${SERVER_PORT:-8080}"
 EXISTING_PID="$(lsof -ti tcp:${SERVER_PORT} -sTCP:LISTEN 2>/dev/null || true)"
 
